@@ -1,0 +1,20 @@
+
+
+
+{% extends 'quotes/base.html'%}
+
+
+{%block content%}
+<h1> Quotes from Taylor Swift</h1>
+{%for q in quotes%}
+<p>{{q}}</p>
+{%endfor%}
+
+
+<h2> All images</h2>
+{%for i in images %}
+<img src="{{ i }}" style="width:300px;margin-bottom:200px">
+{%endfor%}
+
+{%endblock%}
+
