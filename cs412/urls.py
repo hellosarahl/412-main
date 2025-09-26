@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+"""URL pattern for proj"""
 urlpatterns = [
     path('admin/', admin.site.urls),
 
    # path('',include('restaurant.urls')),
+   """include all url for mini insta"""
    path('mini_insta/',include('mini_insta.urls')),
 
 ]
