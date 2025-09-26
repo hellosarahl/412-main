@@ -3,6 +3,8 @@
 from django.urls import path
 from .views import  ProfileListView, RandomProfileView, ProfileDetailView
 
+
+app_name= "mini_insta"
 urlpatterns=[
     path('',RandomProfileView.as_view(),name="random"),
     path('show_all/',ProfileListView.as_view(), name="show_all_profiles"),

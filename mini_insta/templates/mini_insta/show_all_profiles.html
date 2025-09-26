@@ -9,7 +9,7 @@
 <article class="profiles">
     <div>
     <h2>{{profile.username}}</h2>
-    <a href="{% url 'profile' profile.pk %}">
+    <a href="{% url 'mini_insta:profile' profile.pk %}">
      <h3>{{profile.display_name}}</h3>
      <h4>{{profile.join_date}}</h4>
      <img src="{{profile.profile_image_url}}" alt="{{profile.username}}'s profile image">
