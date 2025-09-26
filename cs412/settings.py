@@ -130,7 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
  
-    BASE_DIR/"mini_insta"/ "static",
+    BASE_DIR/"mini_insta" / "static",
 
 ]
 
@@ -141,6 +141,6 @@ MEDIA_URL= "media/"  # note: no leading slash!
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
-    FORCE_SCRIPT_NAME=  '/sarahl/cs412/mini_insta'
+    FORCE_SCRIPT_NAME=  '/sarahl/cs412'
     STATIC_URL = '/sarahl/cs412/mini_insta/static/'
     MEDIA_URL = '/sarahl/cs412/mini_insta/media/'
