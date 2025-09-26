@@ -141,5 +141,6 @@ MEDIA_URL= "media/"  # note: no leading slash!
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
-    STATIC_URL = '/sarahl/static/'
-    MEDIA_URL = '/sarahl/media/'
+    FORCE_SCRIPT_NAME=  '/sarahl/cs412/mini_insta'
+    STATIC_URL = '/sarahl/cs412/mini_insta/static/'
+    MEDIA_URL = '/sarahl/cs412/mini_insta/static/'
