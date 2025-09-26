@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
    # path('',include('restaurant.urls')),
-   path('',include('mini_insta.urls')),
+   path('mini_insta/',include('mini_insta.urls')),
 
 ]
