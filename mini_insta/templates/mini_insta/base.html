@@ -27,6 +27,14 @@
         {% block content %}
         {% endblock %}
       
+{% if profile %}
+<div style="position:fixed;bottom:0;width: 100%; text-align:center">
+    <a href="{% url 'mini_insta:create_post' profile.pk %}" class="btn btn-primary">
+        Create post
+        </a>
+        </div>
+        {% endif %}
+
 
     </body>
 

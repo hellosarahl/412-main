@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,CreateView
-from .models import Profile,Post
+from .models import Profile,Post,Photo
 import random
 from .forms import CreateProfileForm, CreatePostForm
 from django.urls import reverse
@@ -61,17 +61,27 @@ class CreatePostView(CreateView):
    model=Post 
    form_class=CreatePostForm
    template_name="mini_insta/create_post_form.html"
+
    def form_valid(self,form):
       pk=self.kwargs['pk']
       profile=Profile.objects.get(pk=pk)
    #attach article to comment
       form.instance.profile=profile
-
-   #delegate work to the superclass
-      return super().form_valid(form)
+      r= super().form_valid(form)
+      image_url=self.request.POST.get('image_url')
+      if image_url:
+         Photo.objects.create(post=self.object,image_url=image_url)
+      return r
+     
    
    def get_success_url(self): 
       return reverse('mini_insta:profile',kwargs={'pk':self.object.profile.pk})
+   
+   def get_context_data(self,**kwargs):
+      context=super().get_context_data(**kwargs)
+      p=self.kwargs['pk']
+      context['profile']=Profile.objects.get(pk=p)
+      return context
 
 
 

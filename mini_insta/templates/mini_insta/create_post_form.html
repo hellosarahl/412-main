@@ -1,13 +1,22 @@
-<!--mini_insta/create_comment_form.html-
-displays the html file for the create a new comment on an article obkect-->
-
-{% extends mini_insta/base.html' %}
+{% extends 'mini_insta/base.html' %}
 {% block content %}
-<h1>Create a new Comment about {{profile.title}}</h1>
-<!--displays the html form-->
-<form action="{ % url 'create_comment' %} method= "POST">
+<form method ="POST">
+
+<h1>Create new post</h1>
     {% csrf_token %}
-<table>{{form.as_table}}</table>
-<input type="submit" name="submit" value="Submit">
+    <div>
+<label for="id_caption">Caption:</label>
+    {{form.caption}}
+    </div>
+
+    <div>
+        <label for="id_image_url">Image</label>
+        <input type="url" name="image_url" id="id_image_url" required>
+    </div>
+    
+    <button type="submit">Post</button>
+    <a href="{% url 'mini_insta:profile' profile.pk %}" class="btn btn-secondary">Cancel</a>
+
+    </div>
 </form>
-{% endblock %} 
+{% endblock %}

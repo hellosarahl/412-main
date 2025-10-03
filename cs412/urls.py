@@ -26,6 +26,7 @@ urlpatterns = [
 
    path('mini_insta/',include('mini_insta.urls')),
    path('',RedirectView.as_view(url='/mini_insta/',permanent=False)),
+ 
 
 
 ]
