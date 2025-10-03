@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView
-from .models import Profile
+from django.views.generic import ListView,DetailView,CreateView
+from .models import Profile,Post
 import random
+from .forms import CreateProfileForm, CreatePostForm
+from django.urls import reverse
 
 # Class based views for Mini Insta
 class ProfileListView(ListView):
@@ -34,6 +36,44 @@ class RandomProfileView(DetailView):
 
 
 
+#define sublass of create view to handle creations of profile object
+class CreateProfileView(CreateView):
+ """View for handling new profile"""
+ model=Profile
+ form_class= CreateProfileForm
+ template_name="mini_insta/create_profile_form.html"
+ 
+ def get_success_url(self):
+   '''redict url to redirect to after creating new post'''   
+   #pk=self.kwargs['pk']
+   #call reverse to generate url 
+   return reverse('mini_insta:profile',kwargs={'pk':self.object.pk})
+ 
+
+
+class PostDetailView(DetailView):
+    model=Post
+    template_name="mini_insta/show_post.html"
+    context_object_name="post"
+
+
+class CreatePostView(CreateView):
+   model=Post 
+   form_class=CreatePostForm
+   template_name="mini_insta/create_post_form.html"
+   def form_valid(self,form):
+      pk=self.kwargs['pk']
+      profile=Profile.objects.get(pk=pk)
+   #attach article to comment
+      form.instance.profile=profile
+
+   #delegate work to the superclass
+      return super().form_valid(form)
+   
+   def get_success_url(self): 
+      return reverse('mini_insta:profile',kwargs={'pk':self.object.profile.pk})
 
 
 
+#def form_valid(self,form):
+   # print (form.cleaned_data)

@@ -1,0 +1,13 @@
+<!--mini_insta/create_comment_form.html-
+displays the html file for the create a new comment on an article obkect-->
+
+{% extends mini_insta/base.html' %}
+{% block content %}
+<h1>Create a new Comment about {{profile.title}}</h1>
+<!--displays the html form-->
+<form action="{ % url 'create_comment' %} method= "POST">
+    {% csrf_token %}
+<table>{{form.as_table}}</table>
+<input type="submit" name="submit" value="Submit">
+</form>
+{% endblock %} 

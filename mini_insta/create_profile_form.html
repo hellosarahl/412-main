@@ -1,0 +1,13 @@
+<!--mini_insta/create_form.html-
+displays the html file for the create a new profile obkect-->
+
+{% extends mini_insta/base.html' %}
+{% block content %}
+<h1>Create a new Profile</h1>
+<!--displays the html form-->
+<form action="{ % url 'create_profile' %} method= "POST">
+    {% csrf_token %}
+<table>{{form.as_table}}</table>
+<input type="submit" name="submit" value="Submit">
+</form>
+{% endblock %} 

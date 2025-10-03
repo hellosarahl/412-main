@@ -1,0 +1,29 @@
+{ % block content %}
+<h1>{{profile.title}}</h1>
+<main class=" grid-container">
+<profile class="featured">
+    <div>
+        <h2>{{profile.username}}</h2>
+        <h3> by {{profile.display_name}} at {{article.published}}</h3>
+        <p>
+            {{profile.bio_text}}
+
+        </p>
+    </div>
+    <img src="{{profile.image_url}}" alt="">
+</profile>
+<div>
+<h2>Comments</h2>
+<h3> <a href="{% url 'create_comment' profile.pk %}">Create a comment</a> </h3>
+    <!--displya the comment of this profile-->
+    <!--{{profile.get_all_comments}}-->
+    {% for comment in profile.get_all_comments %}
+    <div>
+        <strong>by {{comments.username}} at {{comment.published}}</strong>
+        <p>{{comment.text}}</p>
+    </div>
+</profile>
+{ % endfor %}
+</div>
+</main>
+{ % endblock %}

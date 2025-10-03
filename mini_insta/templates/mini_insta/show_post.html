@@ -1,0 +1,19 @@
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+<h1>Post details</h1>
+
+<h2>{{post.caption|default:"No image"}}</h2>
+<p>Posted: {{post.timestamp}}</p>
+<div class="photo-grid">
+    {% if post.get_all_photos %}
+    {% for photo in post.get_all_photos %}
+    <img src="{{photo.image_url}}" alt="Post photo">
+    {% endfor %}
+    {% else %}
+    <p>No image</p>
+    {% endif %}
+
+    </div>
+    <p><a href="{% url 'mini_insta:profile' post.profile.pk %}">Back to Profile</a></p>
+
+    {% endblock %}
