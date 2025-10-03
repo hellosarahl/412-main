@@ -1,3 +1,11 @@
+
+"""views.py for the mini insta app
+this is for displaying and creating the profiles and post
+
+"""
+
+
+
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,CreateView
 from .models import Profile,Post,Photo
@@ -6,7 +14,9 @@ from .forms import CreateProfileForm, CreatePostForm
 from django.urls import reverse
 
 # Class based views for Mini Insta
+#display all profiles
 class ProfileListView(ListView):
+    """list view that is for displaying all profiles"""
     model=Profile
     template_name= "mini_insta/show_all_profiles.html"
     """for accessing profile """
@@ -52,17 +62,20 @@ class CreateProfileView(CreateView):
 
 
 class PostDetailView(DetailView):
+    """display single post and all photos"""
     model=Post
     template_name="mini_insta/show_post.html"
     context_object_name="post"
 
 
 class CreatePostView(CreateView):
+   """handles the creation of a newly created post"""
    model=Post 
    form_class=CreatePostForm
    template_name="mini_insta/create_post_form.html"
 
    def form_valid(self,form):
+      """creates photo when there is img url"""
       pk=self.kwargs['pk']
       profile=Profile.objects.get(pk=pk)
    #attach article to comment
@@ -75,9 +88,11 @@ class CreatePostView(CreateView):
      
    
    def get_success_url(self): 
+      """goes to profile page after creation of post"""
       return reverse('mini_insta:profile',kwargs={'pk':self.object.profile.pk})
    
    def get_context_data(self,**kwargs):
+      """profile object is added so template has access"""
       context=super().get_context_data(**kwargs)
       p=self.kwargs['pk']
       context['profile']=Profile.objects.get(pk=p)

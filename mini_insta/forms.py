@@ -1,12 +1,13 @@
 
 #mini_insta/form.py
-#forms for creatte, update, delete operation 
+#forms for create, update, delete operation 
 from django import forms
 from .models import *
 from .models import Profile
 
+#create profile form which is for creating a new profile
 class CreateProfileForm(forms.ModelForm):
-    ''' A form to add to article to the database'''
+    ''' A form to add profile to the database'''
     class Meta:
         '''associate form with model of data base'''
         model=Profile
@@ -14,7 +15,8 @@ class CreateProfileForm(forms.ModelForm):
 
 
 class CreatePostForm(forms.ModelForm):
-
+    """form for creating a new post in mini insta"""
     class Meta:
+        """purpose to define fields to display"""
         model=Post
         fields= ['caption']

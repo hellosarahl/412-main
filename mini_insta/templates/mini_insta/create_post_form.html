@@ -1,20 +1,25 @@
 {% extends 'mini_insta/base.html' %}
 {% block content %}
+{# form for creating a new post for profile #}
 <form method ="POST">
-
+{# header of page #}
 <h1>Create new post</h1>
+{# for security #}
     {% csrf_token %}
     <div>
+        {# caption field #}
 <label for="id_caption">Caption:</label>
     {{form.caption}}
     </div>
 
     <div>
+        {# for the image url #}
         <label for="id_image_url">Image</label>
         <input type="url" name="image_url" id="id_image_url" required>
     </div>
-    
+    {# submit button for create post #}
     <button type="submit">Post</button>
+    {# for cancel to go back to profile #}
     <a href="{% url 'mini_insta:profile' profile.pk %}" class="btn btn-secondary">Cancel</a>
 
     </div>

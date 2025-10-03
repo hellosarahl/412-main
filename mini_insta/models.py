@@ -1,3 +1,11 @@
+
+"""models.py for mini_insta App
+this app has the profile,post and photo models
+
+"""
+
+
+
 from django.db import models
 from django .urls import reverse
 
@@ -35,17 +43,19 @@ class Profile(models.Model):
   
 
 
-
-
 class Post(models.Model):
+    """The Post that is made by the Profile of Mini insta
+    """
     profile=models.ForeignKey(Profile,on_delete=models.CASCADE)
     caption=models.TextField(blank=False)
     timestamp=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        """returns the string rep of post"""
         return f'Post by {self.profile.username} at {self.timestamp}'
     
     def get_all_photos(self):
+        
         '''return all photos associated with post'''
         return Photo.objects.filter(post=self)
 

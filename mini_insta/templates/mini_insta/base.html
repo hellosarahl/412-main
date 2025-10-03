@@ -6,11 +6,13 @@
 
 <html>
     <head>
+        {# the title display #}
         <title>Our Profile</title>
         <link rel="stylesheet" href="{% static 'mini_insta/style-mini_insta.css' %}">
     </head>
     <body>
         <header>
+            {# the header of app #}
             <h1>Mini Insta</h1>
             <nav>
                 <ul>
@@ -28,6 +30,7 @@
         {% endblock %}
       
 {% if profile %}
+{# link for creating the new post #}
 <div style="position:fixed;bottom:0;width: 100%; text-align:center">
     <a href="{% url 'mini_insta:create_post' profile.pk %}" class="btn btn-primary">
         Create post
