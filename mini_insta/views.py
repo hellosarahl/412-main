@@ -7,10 +7,11 @@ this is for displaying and creating the profiles and post
 
 
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView,CreateView
-from .models import Profile,Post,Photo
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from .models import Profile,Post,Photo,Post
 import random
-from .forms import CreateProfileForm, CreatePostForm
+from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
+from django.conf import settings
 from django.urls import reverse
 
 # Class based views for Mini Insta
@@ -52,6 +53,15 @@ class CreateProfileView(CreateView):
  model=Profile
  form_class= CreateProfileForm
  template_name="mini_insta/create_profile_form.html"
+
+ def form_valid(self,form):
+    '''override deafault method to add debug info '''
+    #print out form data
+    print(f'CreateProfileView.form_valid():{form.cleaned_data}')
+
+    #delegate work to superclass to do the rest 
+    return super().form_valid(form)
+
  
  def get_success_url(self):
    '''redict url to redirect to after creating new post'''   
@@ -81,9 +91,9 @@ class CreatePostView(CreateView):
    #attach article to comment
       form.instance.profile=profile
       r= super().form_valid(form)
-      image_url=self.request.POST.get('image_url')
-      if image_url:
-         Photo.objects.create(post=self.object,image_url=image_url)
+      images=self.request.FILES.getlist('images')
+      for image in images:
+         Photo.objects.create(post=self.object,image_file=image)
       return r
      
    
@@ -97,6 +107,31 @@ class CreatePostView(CreateView):
       p=self.kwargs['pk']
       context['profile']=Profile.objects.get(pk=p)
       return context
+
+class UpdateProfileView(UpdateView):
+   '''view class to ahandle update of an profile based on its pk'''
+   model=Profile
+   form_class=UpdateProfileForm
+   template_name="mini_insta/update_profile_form.html"
+
+
+class DeletePostView(DeleteView):
+   '''view class to delete a post on a profile'''
+   model=Post
+   template_name="mini_insta/delete_post_form.html"
+
+   def get_success_url(self):
+      '''return the url to redirect to after a successful delete'''
+      # find pk for this post:
+      pk=self.kwargs['pk']
+      # find the post object
+      post=Post.objects.get(pk=pk)
+      # find the pk of profile to which this post is associated
+      profile=post.profile
+
+      #return t url to redirect to
+      return reverse('profile',kwargs={'pk':profile.pk})
+
 
 
 

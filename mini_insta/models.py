@@ -22,7 +22,9 @@ class Profile(models.Model):
     """user bio"""
     bio_text=models.TextField(blank=True)
     """image"""
-    image_url=models.URLField(blank=True)
+   # image_url=models.URLField(blank=True)
+   #an actual image 
+    image_file=models.ImageField(blank=True)
 
 #date field
     join_date=models.DateTimeField(auto_now_add=True)
@@ -65,12 +67,27 @@ class Photo(models.Model):
     '''Encapsulate idea of comment about profile'''
     #data attributes for comments
     post=models.ForeignKey(Post,on_delete=models.CASCADE)
-    image_url=models.URLField(blank=False)
+    image_url=models.URLField(blank=True)
     timestamp=models.DateTimeField(auto_now_add=True)
+    image_file=models.ImageField(blank=True)
     
     def __str__(self):
         '''return string rep of this comment'''
-        return f'Photo of post {self.post.id} at {self.timestamp}'
+        if self.image_file:
+            return f'Photo of post {self.post.id} at {self.timestamp} (file)'
+        elif self.image_url:
+              return f'Photo of post {self.post.id} at {self.timestamp} (url)'
+        else:
+               return f'Photo of post {self.post.id} at {self.timestamp}(no image)'
+
+
+
+    def get_image_url(self):
+        if self.image_url:
+            return self.image_url
+        elif self.image_file:
+            return self.image_file.url
+        return ''
 
   
         

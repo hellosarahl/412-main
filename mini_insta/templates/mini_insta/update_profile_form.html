@@ -1,0 +1,19 @@
+<!--mini_insta/update_profile_form.html-
+displays the html file for the create a new profile obkect-->
+
+{% extends mini_insta/base.html' %}
+{% block content %}
+<h1>Update this Profile</h1>
+<!--displays the html form-->
+<form action="{ % url 'update_profile' profile.pk %}" method= "POST"
+    enctype="multipart/form-data">
+
+    {% csrf_token %}
+<table>{{form.as_table}}</table>
+<input type="submit" name="submit" value="Update">
+</form>
+<!--add a separate form for cancel button-->
+<form action="{% url 'profile' profile.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+{% endblock %} 

@@ -7,7 +7,7 @@
 <div class="photo-grid">
     {% if post.get_all_photos %}
     {% for photo in post.get_all_photos %}
-    <img src="{{photo.image_url}}" alt="Post photo">
+    <img src="{{photo.get_image_url}}" alt="Post photo">
     {% endfor %}
     {% else %}
     <p>No image</p>

@@ -118,12 +118,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
+
 STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -144,3 +146,7 @@ if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     FORCE_SCRIPT_NAME=  '/sarahl'
     STATIC_URL = '/sarahl/cs412/mini_insta/static/'
     MEDIA_URL = '/sarahl/cs412/mini_insta/media/'
+
+#declarations that references media files 
+MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
+MEDIA_URL="/media/"

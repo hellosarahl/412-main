@@ -16,7 +16,11 @@
     <a href="{% url 'mini_insta:profile' profile.pk %}">
      <h3>{{profile.display_name}}</h3>
      <h4>{{profile.join_date}}</h4>
-     <img src="{{profile.profile_image_url}}" alt="{{profile.username}}'s profile image">
+     <!--<img src="{{profile.profile_file.url}}" alt="{{profile.username}}'s profile image"-->
+     {% if profile.image_file %}
+      <img src="{{profile.image_file_url}}" alt="">
+      {% else %}
+      No image{% endif %}
    </a>
    {# for displaying biotext #}
      <p>{{profile.bio_text}}</p>
