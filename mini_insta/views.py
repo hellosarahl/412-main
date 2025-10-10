@@ -114,6 +114,8 @@ class UpdateProfileView(UpdateView):
    form_class=UpdateProfileForm
    template_name="mini_insta/update_profile_form.html"
 
+   
+
 
 class DeletePostView(DeleteView):
    '''view class to delete a post on a profile'''
@@ -128,10 +130,25 @@ class DeletePostView(DeleteView):
       post=Post.objects.get(pk=pk)
       # find the pk of profile to which this post is associated
       profile=post.profile
+      return reverse('mini_insta:profile',kwargs={'pk':profile.pk})
 
-      #return t url to redirect to
-      return reverse('profile',kwargs={'pk':profile.pk})
+   
+   def get_context_data(self, **kwargs):
+      c=super().get_context_data(**kwargs)
+      post=self.get_object()
+      c['post']=post
+      c['profile']=post.profile
+      return c
 
+
+
+class UpdatePostView(UpdateView):
+   model=Post
+   fields=['caption']
+   template_name="mini_insta/update_post_form.html"
+
+   def get_success_url(self):
+      return reverse('mini_insta:post_detail', kwargs={'pk':self.object.pk})
 
 
 

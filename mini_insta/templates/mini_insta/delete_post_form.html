@@ -7,11 +7,18 @@
 <p>
     {{post}}
 </p>
+
 <!--form to submit the delete request-->
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Confirm Delete">
+</form>
+
+<!--form to cancel the delete request-->
 <form action="{% url 'mini_insta:profile' post.profile.pk %}" method="GET">
     {% csrf_token %}
     <input type="submit" value="Cancel">
 </form>
-<!--form to cancel the delete request-->
+
 
 {% endblock %}

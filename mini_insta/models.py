@@ -35,7 +35,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         '''return url to display oen instance of each object'''
-        return reverse('profile',kwargs={'pk':self.pk})
+        return reverse('mini_insta:profile',kwargs={'pk':self.pk})
     
     def get_all_posts(self):
         '''return queryset of post'''
