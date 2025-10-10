@@ -135,5 +135,6 @@ class DeletePostView(DeleteView):
 
 
 
+
 #def form_valid(self,form):
    # print (form.cleaned_data)

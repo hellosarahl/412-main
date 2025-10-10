@@ -21,7 +21,7 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         '''associate this form with a model in our database'''
         model=Profile
-        fields=['display_name','username']
+        fields=['display_name','bio_text','profile_image_url','image_file']
 
 
 class CreatePostForm(forms.ModelForm):
