@@ -5,9 +5,11 @@
 <h2>{{post.caption|default:"No image"}}</h2>
 <p>Posted: {{post.timestamp}}</p>
 <div class="photo-grid">
-    {% if post.get_all_photos %}
+ {% if post.get_all_photos %}
     {% for photo in post.get_all_photos %}
+       {% if photo.get_image_url %}
     <img src="{{photo.get_image_url}}" alt="Post photo">
+    {% endif %}
     {% endfor %}
     {% else %}
     <p>No image</p>
