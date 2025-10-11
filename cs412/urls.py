@@ -30,7 +30,8 @@ urlpatterns = [
    path('',RedirectView.as_view(url='/mini_insta/',permanent=False)),
  
 ]
-
+#static files for development
 urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

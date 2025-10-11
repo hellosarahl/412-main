@@ -1,11 +1,20 @@
 <!--mini_insta/update_profile_form.html-
 displays the html file for the create a new profile obkect-->
 
+{# 
+    File:create_profile_form.html
+    Author:Sarah Lam
+    Description:update profile information
+#}
+
+
+
 {% extends 'mini_insta/base.html' %}
 {% block content %}
 <h1>Update this Profile</h1>
 <!--displays the html form-->
 <form action="{% url 'mini_insta:update_profile' profile.pk %}" method= "POST"
+
     enctype="multipart/form-data">
 
     {% csrf_token %}

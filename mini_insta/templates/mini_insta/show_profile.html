@@ -1,4 +1,10 @@
 {# show_profile.html #}
+
+{# 
+    File:create_profile_form.html
+    Author:Sarah Lam
+    Description:display details of the profile detail
+#}
 {# displays the profile and the associated post #}
 {% extends 'mini_insta/base.html' %}
 {% block content %}
@@ -21,6 +27,7 @@
         </a>
 </p>
 <p>
+    {# link for updating #}
     <a href="{% url 'mini_insta:update_profile' profile.pk %}" class="btn btn-secondary">
         Update Profile
         </a>

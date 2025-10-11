@@ -1,22 +1,31 @@
 {% extends 'mini_insta/base.html' %}
+{#  File:create_profile_form.html
+    Author:Sarah Lam
+    Description:display details of the post such as update or delete the post #}
 {% block content %}
 <h1>Post details</h1>
-
+{#display post caption #}
 <h2>{{post.caption|default:"No image"}}</h2>
 <p>Posted: {{post.timestamp}}</p>
 <div class="photo-grid">
+   {# see if any post that is associated #}
  {% if post.get_all_photos %}
     {% for photo in post.get_all_photos %}
+    {#if valid url #}
        {% if photo.get_image_url %}
     <img src="{{photo.get_image_url}}" alt="Post photo">
     {% endif %}
     {% endfor %}
     {% else %}
+    {# show no image if none found #}
     <p>No image</p>
     {% endif %}
 
     </div>
+    {# go back to profile page that has this post #}
     <p><a href="{% url 'mini_insta:profile' post.profile.pk %}">Back to Profile</a></p>
+    {# update the current post #}
      <p><a href="{% url 'mini_insta:update_post' post.pk %}">Update Post</a></p>
+     {#display delete caption #}
      <p><a href="{% url 'mini_insta:delete_post' post.pk %}">Delete Post</a></p>
     {% endblock %}

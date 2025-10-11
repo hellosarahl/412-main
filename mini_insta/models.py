@@ -1,7 +1,11 @@
 
 """models.py for mini_insta App
-this app has the profile,post and photo models
+this app has the profile,post and photo models"""
 
+"""
+File:models.py
+    Author:Sarah Lam 
+Methods used to get data and url
 """
 
 
@@ -83,6 +87,7 @@ class Photo(models.Model):
 
 
     def get_image_url(self):
+        """return the url of the image"""
         if self.image_url:
             return self.image_url
         elif self.image_file:

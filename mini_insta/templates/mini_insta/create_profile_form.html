@@ -1,5 +1,11 @@
 <!--mini_insta/create_form.html-
 displays the html file for the create a new profile obkect-->
+{# 
+    File:create_profile_form.html
+    Author:Sarah Lam
+    Description:display form for profile 
+
+#}
 
 {% extends mini_insta/base.html' %}
 {% block content %}
@@ -8,8 +14,10 @@ displays the html file for the create a new profile obkect-->
 <form action="{ % url 'create_profile' %}" method= "POST"
     enctype="multipart/form-data">
 
+    {# token for security #}
     {% csrf_token %}
 <table>{{form.as_table}}</table>
+  {# submit button for form #}
 <input type="submit" name="submit" value="Submit">
 </form>
 {% endblock %} 
