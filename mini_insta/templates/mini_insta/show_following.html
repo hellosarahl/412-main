@@ -5,16 +5,16 @@
 <html>
     <head>
            <!--profiles user-->
-        <title>{{ profile.user.username }} Following</title>
+        <title>{{ profile.username }} Following</title>
     </head>
     <body>
             <!--displays the following-->
-        <h1>{{profile.user.username}}'s Following</h1>
+        <h1>{{profile.username}}'s Following</h1>
 
         <ul>
             <!--loop through list of profiles profile follows-->
             {% for f in profile.get_following %}
-            <li>{{ f.user.username }}</li>
+            <li>{{ f.username }}</li>
             {% empty %}
             <li>Not following</li>
             {% endfor %}

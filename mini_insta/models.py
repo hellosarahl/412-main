@@ -12,6 +12,7 @@ Methods used to get data and url
 
 from django.db import models
 from django .urls import reverse
+from django.views.generic import ListView
 
 # Profile model for the mini insta 
 class Profile(models.Model):
@@ -69,6 +70,13 @@ class Profile(models.Model):
     #return count of how many profiles ar ebeing followed
     def get_num_following(self):
         return Follow.objects.filter(follower_profile=self).count()
+    
+    #returns a list of post
+    def get_post_feed(self):
+        fol=Follow.objects.filter(follower_profile=self).values_list('profile')
+        #most recent on top
+        return Post.objects.filter(profile__in=fol).order_by("-timestamp")
+
     
   
 
@@ -169,7 +177,8 @@ class Like(models.Model):
       def __str__(self):
           #displays the like
           return f'Like {self.profile} in {self.post} during {self.timestamp}'
-    
+      
+
 
 
 

@@ -157,12 +157,52 @@ class ShowFollowerDetailView(DetailView):
    template_name="mini_insta/show_followers.html"
    context_object_name='profile'
 
+   """add context daya so template displays followers"""
+   def get_context_data(self, **kwargs):
+       con=super().get_context_data(**kwargs)
+       p=self.kwargs['pk']
+       profile=self.get_object()
+       con['following_list']=profile.get_followers()
+       return con
+
+
 """shows the follow detail"""
 class ShowFollowingDetailView(DetailView):
    model=Profile
    #template for the following data
    template_name="mini_insta/show_following.html"
    context_object_name='profile'
+
+   """add context daya so template displays following"""
+   def get_context_data(self, **kwargs):
+       con=super().get_context_data(**kwargs)
+       p=self.kwargs['pk']
+       profile=self.get_object()
+       con['following_list']=profile.get_following()
+       return con
+
+
+
+
+"""view class associated with show feed """
+
+class PostFeedListView(ListView):
+    model=Post
+    template_name="mini_insta/show_feed.html"
+
+    """gets the post that belong to profile by pk from url """
+    def get_queryset(self):
+       p=self.kwargs['pk']
+       pro=Profile.objects.get(pk=p)
+       return Post.objects.filter(profile=pro)
+    
+    """add context daya so template displays profile """
+    def get_context_data(self, **kwargs):
+       con=super().get_context_data(**kwargs)
+       p=self.kwargs['pk']
+       con['profile']=Profile.objects.get(pk=p)
+       return con
+
 
 
 

@@ -1,0 +1,56 @@
+<!--show_feed.html
+Author:Sarah Lam
+Purpose:Displays post feed for a single profile
+-->
+
+<html>
+    <head>
+        <title>{{profile.username}} Feed</title>
+    </head>
+    <body>
+        <!--page header for showing feed-->
+        <h1>Feed {{profile.username}}</h1>
+
+        {% for p in posts %}
+        <div>
+            <div>
+                        <!--showing who the feed belongs to-->
+            <img src="{{ p.profile.profile_image_url }}" alt="{{ p.profile.username}}">
+            <p>{{p.profile.username}}</p>
+    <!--goes over every post-->
+            {% if p.photo_set.all %}
+            <img src="{{ p.photo_set.all.0.image_file.url}}" alt="Photo of post of {{p.profile.username}}">
+            {% endif %}
+        </div>
+         <!--caption-->
+        <p>{{p.caption}}</p>
+        <!--get like count-->
+        <p>{{ p.get_likes.count }} </p>
+
+        <!--comments-->
+        <div>
+            <h3>Comments:</h3>
+            {% for comment in p.get_all_comments %}
+            <p>{{comment.profile.username}}:{{comment.t}}</p>
+            {% empty %}
+            <p>No comments</p>
+            {% endfor %}
+            </div>
+            </div>
+            
+
+    {% empty %}
+    <p>No post</p>
+
+    {% endfor %}
+    {% if posts %}
+    <!--links back to profile page-->
+    <a href="{% url 'mini_insta:profile' posts.0.profile.pk %}">Back to profile</a>
+    {% else %}
+    <a href="{% url 'mini_insta:show_all_profiles' %}">Back to profile</a>
+    {% endif %}
+
+
+    </body>
+    </html>
+

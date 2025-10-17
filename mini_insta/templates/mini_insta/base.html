@@ -16,16 +16,19 @@
         <header>
             {# the header of app #}
             <h1>Mini Insta</h1>
-            <nav>
-                <ul>
+       
+            
                   {# link to show all profile #}
                   {% if profile %}
-                     <li><a href="{% url 'mini_insta:profile' profile.pk %}">Back to Profile</a></li>
-                    <li><a href="{% url 'mini_insta:create_post' profile.pk %}">Create Post</a></li>
+                  <nav style="position:fixed;bottom:0;left:45%;width:100%;display:flex;">
+                    <ul>
+                    <li><a href="{% url 'mini_insta:profile_feed' profile.pk %}">Home</a></li>
+                     <li><a href="{% url 'mini_insta:profile' profile.pk %}">Profile</a></li>
+                   
+                     </ul>
+                     </nav>
                     {% endif %}
-
-                </ul>
-            </nav>
+            
 
   </header>
         {% block content %}
