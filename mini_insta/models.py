@@ -46,6 +46,30 @@ class Profile(models.Model):
         post=Post.objects.filter(profile=self)
         return post
     
+     #return list of profiles who follow this profile
+    def get_followers(self):
+        f=Follow.objects.filter(profile=self)
+        li=[]
+        for follow in f:
+            li+=[follow.follower_profile]
+        return li
+    
+    #get the number of follows
+    def get_num_followers(self):
+        return Follow.objects.filter(profile=self).count()
+    
+    #get the number of followers
+    def get_following(self):
+        f=Follow.objects.filter(follower_profile=self)
+        li=[]
+        for follow in f:
+            li+=[follow.profile]
+        return li
+    
+    #return count of how many profiles ar ebeing followed
+    def get_num_following(self):
+        return Follow.objects.filter(follower_profile=self).count()
+    
   
 
 
@@ -64,6 +88,14 @@ class Post(models.Model):
         
         '''return all photos associated with post'''
         return Photo.objects.filter(post=self)
+    
+    def get_all_comments(self):
+        """gets all the comments"""
+        return self.comments.all().order_by('timestamp')
+    def get_likes(self):
+        """gets all like object"""
+        return self.likes.all()
+    
 
 
 
@@ -93,6 +125,54 @@ class Photo(models.Model):
         elif self.image_file:
             return self.image_file.url
         return ''
+    
+"""connects idea of two nodes within the social network"""
+class Follow(models.Model):
+    #the profile followed-publisher
+    profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='followers')
+    #profile for subscribers
+    follower_profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='following')
+    #timestamp of when follower began
+    timestamp=models.DateTimeField(auto_now_add=True)
+
+    #view follow relationship as a string rep
+    def __str__(self):
+           """returns the string rep of follow"""
+           return f' {self.follower_profile} follows {self.profile}'
+    
+   
+        
+"""data model representing a comment """
+class Comment(models.Model):
+    #fk for post this comment
+      post=models.ForeignKey('Post',on_delete=models.CASCADE,related_name='comments')
+      #fk for profile that made comment
+      profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='comments')
+    #timestamp for comments
+      timestamp=models.DateTimeField(auto_now_add=True)
+      #text of comment
+      t=models.TextField()
+
+      def __str__(self):
+          #displays the comment
+          return f'Comment {self.profile} in {self.post} during {self.timestamp}'
+      
+
+"""data model representing a like """
+class Like(models.Model):
+    #fk for post this like relates to 
+      post=models.ForeignKey('Post',on_delete=models.CASCADE,related_name='likes')
+      #fk for profile that is making this like
+      profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='likes')
+    #timestamp for when like was created
+      timestamp=models.DateTimeField(auto_now_add=True)
+      def __str__(self):
+          #displays the like
+          return f'Like {self.profile} in {self.post} during {self.timestamp}'
+    
+
+
+
 
   
         

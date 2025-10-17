@@ -3,6 +3,10 @@
     Author:Sarah Lam
     Description:display details of the post such as update or delete the post #}
 {% block content %}
+
+{# display number of likes on post #}
+<p>{{post.get_likes.count}} Likes</p>
+
 <h1>Post details</h1>
 {#display post caption #}
 <h2>{{post.caption|default:"No image"}}</h2>
@@ -28,4 +32,17 @@
      <p><a href="{% url 'mini_insta:update_post' post.pk %}">Update Post</a></p>
      {#display delete caption #}
      <p><a href="{% url 'mini_insta:delete_post' post.pk %}">Delete Post</a></p>
+
+     <ul>
+      {# displays the comments that are related to the post #}
+      {% for c in post.get_all_comments %}
+      <li> {{c.profile}} {{c.t}} ({{c.timestamp}})</li>
+      {% empty %}
+        {# no comments #}
+      <li>No comments</li>
+      {% endfor %}
+
+
+     </ul>
+
     {% endblock %}

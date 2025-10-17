@@ -63,4 +63,26 @@ alt="No Image">
 <p><a href="{% url 'mini_insta:random' %}">Back to all profiles</a>
 </p>
 
+
+<!--display of follower and following count-->
+
+<div>
+    <p>Followers:
+        <a href="{% url 'mini_insta:show_followers' profile.pk %}">
+            {{profile.get_num_followers }}
+        </a>
+
+    </p>
+
+    <p>Following:
+        <a href="{% url 'mini_insta:show_following' profile.pk %}">
+            {{profile.get_num_following }}
+        </a>
+
+    </p>
+
+
+
+</div>
+
 {% endblock %}

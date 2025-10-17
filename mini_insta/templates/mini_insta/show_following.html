@@ -1,0 +1,26 @@
+<!-- Template is show_following.html
+ It is for showing the list of people who follow the profile
+
+ -->
+<html>
+    <head>
+           <!--profiles user-->
+        <title>{{ profile.user.username }} Following</title>
+    </head>
+    <body>
+            <!--displays the following-->
+        <h1>{{profile.user.username}}'s Following</h1>
+
+        <ul>
+            <!--loop through list of profiles profile follows-->
+            {% for f in profile.get_following %}
+            <li>{{ f.user.username }}</li>
+            {% empty %}
+            <li>Not following</li>
+            {% endfor %}
+        </ul>
+        <!--link for going back to the profile detail-->
+        <a href="{% url 'mini_insta:profile' profile.pk %}">Back to the Profile</a>
+
+    </body>
+</html>
