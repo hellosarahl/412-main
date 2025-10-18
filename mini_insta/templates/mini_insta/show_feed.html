@@ -2,7 +2,8 @@
 Author:Sarah Lam
 Purpose:Displays post feed for a single profile
 -->
-
+{% extends 'mini_insta/base.html' %}
+{% block content %}
 <html>
     <head>
         <title>{{profile.username}} Feed</title>
@@ -53,4 +54,5 @@ Purpose:Displays post feed for a single profile
 
     </body>
     </html>
+    {% endblock %}
 

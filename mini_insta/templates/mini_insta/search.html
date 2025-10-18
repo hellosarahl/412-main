@@ -1,0 +1,25 @@
+
+<!--search.html
+Author:Sarah Lam
+Purpose:search the profiles based on searching for info
+-->
+<!-- template search.html-->
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+<h1>Search the Profiles and Post</h1>
+
+{% if profile %}
+<form method="get" action="{% url 'mini_insta:search' profile.pk %}">
+<!--textbok for search-->
+    <textarea name="m" placeholder="Your search"></textarea>
+        <br>
+        <!--button for submits-->
+        <button type="submit">Searches</button>
+    </form>
+    {% else %}
+    <p>Go to profile to search</p>
+    {% endif %}
+
+    {% endblock %}
+
+

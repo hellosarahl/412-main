@@ -1,0 +1,39 @@
+<!--search_result.html
+Author:Sarah Lam
+Purpose:display result of the search
+-->
+<!-- template search_result.html-->
+
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+<h1>Search results "{{query}}"</h1>
+
+<!--search if any similar profile-->
+<h2>Profiles</h2>
+<ul>
+    <!--loop through the profiles that match search-->
+    {% for p in profiles %}
+    <!--displays the username and bio-->
+    <li>{{p.username}}-{{p.bio_text}}</li>
+    {% empty %}
+    <li>Profile not found</li>
+    {% endfor %}
+    </ul>
+
+
+<!--search if any similar post-->
+<h2>Post</h2>
+<ul>
+    <!--go through post that match through search-->
+    {% for p in post %}
+    <li>{{p.title}}-{{p.content}}</li>
+    {% empty %}
+    <!--show no post-->
+    <li>Post not found</li>
+    {% endfor %}
+    </ul>
+
+
+{% endblock %}
+
+    

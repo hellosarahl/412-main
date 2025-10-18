@@ -1,7 +1,13 @@
+<!--show_following.html
+Author:Sarah Lam
+Purpose:Displays following for a single profile
+-->
 <!-- Template is show_followers.html
  It is for showing the list of people who follow the profile
 
  -->
+ {% extends 'mini_insta/base.html' %}
+{% block content %}
 <html>
     <head>
            <!--profiles user-->
@@ -13,7 +19,7 @@
 
         <ul>
             {% for f in profile.get_followers %}
-            <li>{{ f.username }}</li>
+            <li>{{ f.username }} {{f.timestamp}}</li>
             {% empty %}
             <li>No followers</li>
             {% endfor %}
@@ -23,3 +29,4 @@
 
     </body>
 </html>
+{% endblock %}

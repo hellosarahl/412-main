@@ -144,9 +144,8 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     FORCE_SCRIPT_NAME=  '/sarahl'
-    STATIC_URL = '/sarahl/cs412/mini_insta/static/'
-    MEDIA_URL = '/sarahl/cs412/mini_insta/media/'
+    STATIC_URL = '/sarahl/mini_insta/static/mini_insta/'
+    MEDIA_URL = '/sarahl/media/'
 
 #declarations that references media files 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
-MEDIA_URL="/media/"

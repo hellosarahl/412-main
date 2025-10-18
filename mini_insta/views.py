@@ -13,6 +13,7 @@ import random
 from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
 from django.conf import settings
 from django.urls import reverse
+from django.db.models import Q
 
 # Class based views for Mini Insta
 #display all profiles
@@ -202,6 +203,66 @@ class PostFeedListView(ListView):
        p=self.kwargs['pk']
        con['profile']=Profile.objects.get(pk=p)
        return con
+    """search for profiles and post"""
+class SearchView(ListView):
+    template_name="mini_insta/search_results.html"
+
+    def get_context_data(self, **kwargs):
+       con=super().get_context_data(**kwargs)
+       #find if query is present
+       search=self.request.GET.get('m','')
+       con['query']=search
+
+       #search for match in the profiles
+       con['profiles']=Profile.objects.filter( Q(bio_text__icontains=search)|Q(username__icontains=search)|Q(display_name__icontains=search)
+       )
+    
+
+       #profile object we use for resarch 
+       profile=None
+       if self.request.user.is_authenticated:
+          profile=Profile.objects.filter(username=self.request.user).first()
+       else:
+          profile=None
+       con['profile']=profile
+
+       #post that matches the query
+       con['post']=self.get_queryset()
+
+       return con
+    
+
+    
+    """handles any request"""
+    def dispatch(self,request,*args,**kwargs):
+      q=request.GET.get('m')
+
+      #user login get info
+      if not q:
+            profile=Profile.objects.filter(pk=self.kwargs.get('pk')).first()
+          #show the profile info 
+            return render(request, 'mini_insta/search.html',{'profile':profile})
+       
+       #continue normal search,return superclass version
+
+      return super().dispatch(request,*args,**kwargs)
+    
+    """method used to obtain the query set"""
+    def get_queryset(self):
+       q=self.request.GET.get('m')
+       if not q:
+          return Post.objects.none()
+       else:
+          return Post.objects.filter(caption__icontains=q)
+       
+    
+    """the form from the search"""
+#def form(request,pk):
+       #return render(request,'mini_insta/search.html',{'profile_pk':pk})
+
+    
+
+
 
 
 

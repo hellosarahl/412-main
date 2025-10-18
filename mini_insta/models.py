@@ -169,12 +169,12 @@ class Comment(models.Model):
 """data model representing a like """
 class Like(models.Model):
     #fk for post this like relates to 
-      post=models.ForeignKey('Post',on_delete=models.CASCADE,related_name='likes')
+    post=models.ForeignKey('Post',on_delete=models.CASCADE,related_name='likes')
       #fk for profile that is making this like
-      profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='likes')
+    profile=models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='likes')
     #timestamp for when like was created
-      timestamp=models.DateTimeField(auto_now_add=True)
-      def __str__(self):
+    timestamp=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
           #displays the like
           return f'Like {self.profile} in {self.post} during {self.timestamp}'
       
