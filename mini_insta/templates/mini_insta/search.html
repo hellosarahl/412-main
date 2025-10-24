@@ -9,7 +9,7 @@ Purpose:search the profiles based on searching for info
 <h1>Search the Profiles and Post</h1>
 
 {% if profile %}
-<form method="get" action="{% url 'mini_insta:search' profile.pk %}">
+<form method="get" action="{% url 'mini_insta:search' %}">
 <!--textbok for search-->
     <textarea name="m" placeholder="Your search"></textarea>
         <br>

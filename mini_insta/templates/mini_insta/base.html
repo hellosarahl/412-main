@@ -19,33 +19,60 @@
        
             
                   {# link to show all profile #}
-                  {% if profile %}
-                  <nav style="position:fixed;bottom:0;left:45%;width:100%;display:flex;">
+              <nav>
+                  
                     <ul>
-                    <li><a href="{% url 'mini_insta:profile_feed' profile.pk %}">Home</a></li>
-                     <li><a href="{% url 'mini_insta:profile' profile.pk %}">Profile</a></li>
-                     <li><a href="{% url 'mini_insta:search' profile.pk %}">Search</a></li>
+                         {% if request.user.is_authenticated %}
+               
+                    <li><a href="{% url 'mini_insta:profile_feed' %}">Home</a></li>
+                     <li><a href="{% url 'mini_insta:profile' %}">Profile</a></li>
+                     <li><a href="{% url 'mini_insta:search'  %}">Search</a></li>
+                       <li><a href="{% url 'mini_insta:create_post' %}" class="btn btn-primary">Create Post</a></li>
+
+                     <!-- add url for authentication-->
+                          <li><form method="post" action="{% url 'mini_insta:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                            </form>
+
+                        </li>
+                              {% else %}
+
+
+                    
+                        <li><a href="{% url 'mini_insta:login'  %}">Login</a></li>
+                        {% endif %}
+
+                
+
+                      
+                    
+
                    
-                     </ul>
-                     </nav>
-                    {% endif %}
+                             </ul>
+                             </nav>
+
+         
+<div>
+                      {% if request.user.is_authenticated %}
+                      
+        
+                     Logged in as: {{request.user}}
+                     {% else %}
+                    Not logged in.
+                     {% endif %}
+</div>
+             
+   
+
+</header>
             
 
-  </header>
         {% block content %}
         {% endblock %}
+</body>
       
-{% if profile %}
-{# link for creating the new post #}
-<div style="position:fixed;bottom:0;width: 100%; text-align:center">
-    <a href="{% url 'mini_insta:create_post' profile.pk %}" class="btn btn-primary">
-        Create post
-        </a>
-        </div>
-        {% endif %}
 
-
-    </body>
 
 
 

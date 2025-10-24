@@ -1,0 +1,8 @@
+<!--purpose is to logout
+Name:Sarah Lam -->
+
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+<h1>You have been logged out</h1>
+<p><a href="{% url 'mini_insta:login' %}">log in again</a></p>
+{% endblock %}

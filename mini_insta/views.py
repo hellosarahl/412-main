@@ -8,12 +8,26 @@ this is for displaying and creating the profiles and post
 
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
-from .models import Profile,Post,Photo,Post
+from .models import Profile,Post,Photo,Follow, Like
 import random
 from .forms import CreateProfileForm, CreatePostForm, UpdateProfileForm
 from django.conf import settings
 from django.urls import reverse
 from django.db.models import Q
+#for authentication
+from django.contrib.auth.mixins import LoginRequiredMixin
+#for a new user
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+
+from django.contrib.auth import login
+
+
+
+'''view for the login'''
+class MiniInstaLoginRequiredView(LoginRequiredMixin):
+   login_url=reverse_lazy('mini_insta:login')
 
 # Class based views for Mini Insta
 #display all profiles
@@ -30,6 +44,22 @@ class ProfileDetailView(DetailView):
     template_name="mini_insta/show_profile.html"
     """access profile"""
     context_object_name="profile"
+    def dispatch(self, request, *args, ** kwargs):
+       '''override the dispatch method to add debugging info'''
+       if request.user.is_authenticated:
+          print(f'ProfileDetailView.dispatch():request.user={request.user}')
+       else:
+          print(f'ProfileDetailView.dispatch():not logged in.')
+
+       return super().dispatch(request,*args,**kwargs)
+       
+       ''''get object to return profile'''
+    def get_object(self):
+          return Profile.objects.get(user=self.request.user)
+
+   
+ 
+
 
 #to display random profile
 class RandomProfileView(DetailView):
@@ -54,21 +84,37 @@ class CreateProfileView(CreateView):
  model=Profile
  form_class= CreateProfileForm
  template_name="mini_insta/create_profile_form.html"
+ success_url=reverse_lazy('mini_insta:profile')
+
+ '''get context data'''
+
+ def get_context_data(self,**kwargs):
+    con=super().get_context_data(**kwargs)
+    con['user_form']=UserCreationForm()
+    return con
+
+
+
 
  def form_valid(self,form):
     '''override deafault method to add debug info '''
-    #print out form data
-    print(f'CreateProfileView.form_valid():{form.cleaned_data}')
+    user_form=UserCreationForm(self.request.POST)
+    if user_form.is_valid():
+       user=user_form.save()
+       login(self.request,user,backend='django.contrib.auth.backends.ModelBackend')
+       form.instance.user=user
+       return super().form_valid(form)
+    else:
+       return self.form_invalid(form)
 
-    #delegate work to superclass to do the rest 
-    return super().form_valid(form)
+   
 
  
  def get_success_url(self):
    '''redict url to redirect to after creating new post'''   
    #pk=self.kwargs['pk']
    #call reverse to generate url 
-   return reverse('mini_insta:profile',kwargs={'pk':self.object.pk})
+   return reverse('mini_insta:profile')
  
 
 
@@ -79,7 +125,7 @@ class PostDetailView(DetailView):
     context_object_name="post"
 
 
-class CreatePostView(CreateView):
+class CreatePostView(MiniInstaLoginRequiredView,CreateView):
    """handles the creation of a newly created post"""
    model=Post 
    form_class=CreatePostForm
@@ -87,8 +133,8 @@ class CreatePostView(CreateView):
 
    def form_valid(self,form):
       """creates photo when there is img url"""
-      pk=self.kwargs['pk']
-      profile=Profile.objects.get(pk=pk)
+      profile=Profile.objects.get(user=self.request.user)
+      
    #attach article to comment
       form.instance.profile=profile
       r= super().form_valid(form)
@@ -100,38 +146,39 @@ class CreatePostView(CreateView):
    
    def get_success_url(self): 
       """goes to profile page after creation of post"""
-      return reverse('mini_insta:profile',kwargs={'pk':self.object.profile.pk})
+      return reverse('mini_insta:profile')
    
    def get_context_data(self,**kwargs):
       """profile object is added so template has access"""
       context=super().get_context_data(**kwargs)
-      p=self.kwargs['pk']
-      context['profile']=Profile.objects.get(pk=p)
+      context['profile']=Profile.objects.get(user=self.request.user)
       return context
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(MiniInstaLoginRequiredView,UpdateView):
    '''view class to ahandle update of an profile based on its pk'''
    model=Profile
    form_class=UpdateProfileForm
    template_name="mini_insta/update_profile_form.html"
 
+   '''fet log in user profile'''
+   def get_object(self):
+      profile=create=Profile.objects.get_or_create(user=self.request.user)
+   
+   def get_success_url(self):
+      return reverse('mini_insta:profile')
+   
+
    
 
 
-class DeletePostView(DeleteView):
+class DeletePostView(MiniInstaLoginRequiredView,DeleteView):
    '''view class to delete a post on a profile'''
    model=Post
    template_name="mini_insta/delete_post_form.html"
 
    def get_success_url(self):
       '''return the url to redirect to after a successful delete'''
-      # find pk for this post:
-      pk=self.kwargs['pk']
-      # find the post object
-      post=Post.objects.get(pk=pk)
-      # find the pk of profile to which this post is associated
-      profile=post.profile
-      return reverse('mini_insta:profile',kwargs={'pk':profile.pk})
+      return reverse('mini_insta:profile')
 
    
    def get_context_data(self, **kwargs):
@@ -143,7 +190,7 @@ class DeletePostView(DeleteView):
 
 
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(MiniInstaLoginRequiredView,UpdateView):
    model=Post
    fields=['caption']
    template_name="mini_insta/update_post_form.html"
@@ -158,13 +205,18 @@ class ShowFollowerDetailView(DetailView):
    template_name="mini_insta/show_followers.html"
    context_object_name='profile'
 
+
+   def get_object(self):
+      return Profile.objects.get(user=self.request.user)
+
    """add context daya so template displays followers"""
    def get_context_data(self, **kwargs):
        con=super().get_context_data(**kwargs)
-       p=self.kwargs['pk']
        profile=self.get_object()
        con['following_list']=profile.get_followers()
        return con
+   
+  
 
 
 """shows the follow detail"""
@@ -177,34 +229,35 @@ class ShowFollowingDetailView(DetailView):
    """add context daya so template displays following"""
    def get_context_data(self, **kwargs):
        con=super().get_context_data(**kwargs)
-       p=self.kwargs['pk']
        profile=self.get_object()
        con['following_list']=profile.get_following()
        return con
+   
+   def get_object(self):
+      return Profile.objects.get(user=self.request.user)
 
 
 
 
 """view class associated with show feed """
 
-class PostFeedListView(ListView):
+class PostFeedListView(MiniInstaLoginRequiredView,ListView):
     model=Post
     template_name="mini_insta/show_feed.html"
 
     """gets the post that belong to profile by pk from url """
     def get_queryset(self):
-       p=self.kwargs['pk']
-       pro=Profile.objects.get(pk=p)
-       return Post.objects.filter(profile=pro)
+       profile=Profile.objects.get(user=self.request.user)
+       return Post.objects.filter(profile=profile)
+      
     
     """add context daya so template displays profile """
     def get_context_data(self, **kwargs):
        con=super().get_context_data(**kwargs)
-       p=self.kwargs['pk']
-       con['profile']=Profile.objects.get(pk=p)
+       con['profile']=Profile.objects.get(user=self.request.user)
        return con
     """search for profiles and post"""
-class SearchView(ListView):
+class SearchView(MiniInstaLoginRequiredView,ListView):
     template_name="mini_insta/search_results.html"
 
     def get_context_data(self, **kwargs):
@@ -221,7 +274,7 @@ class SearchView(ListView):
        #profile object we use for resarch 
        profile=None
        if self.request.user.is_authenticated:
-          profile=Profile.objects.filter(username=self.request.user).first()
+          profile=Profile.objects.filter(user=self.request.user).first()
        else:
           profile=None
        con['profile']=profile
@@ -239,7 +292,7 @@ class SearchView(ListView):
 
       #user login get info
       if not q:
-            profile=Profile.objects.filter(pk=self.kwargs.get('pk')).first()
+            profile=Profile.objects.filter(user=self.request.user).first()
           #show the profile info 
             return render(request, 'mini_insta/search.html',{'profile':profile})
        
@@ -261,6 +314,17 @@ class SearchView(ListView):
        #return render(request,'mini_insta/search.html',{'profile_pk':pk})
 
     
+class UserRegistrationView(CreateView):
+   '''a view to show/process the reg form to create a new user'''
+   template_name='mini_insta/register.html'
+   form_class=UserCreationForm
+   model=User
+
+
+   def get_success_url(self):
+      '''the url to redirect to after creating new user'''
+      return reverse('login')
+
 
 
 

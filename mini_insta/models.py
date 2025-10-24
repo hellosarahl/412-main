@@ -13,6 +13,7 @@ Methods used to get data and url
 from django.db import models
 from django .urls import reverse
 from django.views.generic import ListView
+from django.contrib.auth.models import User
 
 # Profile model for the mini insta 
 class Profile(models.Model):
@@ -30,6 +31,9 @@ class Profile(models.Model):
    # image_url=models.URLField(blank=True)
    #an actual image 
     image_file=models.ImageField(blank=True)
+
+    #data attribute of a profile
+    user=models.ForeignKey(User,on_delete=models.CASCADE,default=1)
 
 #date field
     join_date=models.DateTimeField(auto_now_add=True)

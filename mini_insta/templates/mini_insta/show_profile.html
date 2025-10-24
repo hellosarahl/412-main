@@ -22,13 +22,13 @@
 
 {# link for creating new post for profile #}
 <p>
-    <a href="{% url 'mini_insta:create_post' profile.pk %}" class="btn btn-primary">
+    <a href="{% url 'mini_insta:create_post' %}" class="btn btn-primary">
         Create
         </a>
 </p>
 <p>
     {# link for updating #}
-    <a href="{% url 'mini_insta:update_profile' profile.pk %}" class="btn btn-secondary">
+    <a href="{% url 'mini_insta:update_profile'  %}" class="btn btn-secondary">
         Update Profile
         </a>
 </p>
@@ -68,14 +68,14 @@ alt="No Image">
 
 <div>
     <p>Followers:
-        <a href="{% url 'mini_insta:show_followers' profile.pk %}">
+        <a href="{% url 'mini_insta:show_followers'  %}">
             {{profile.get_num_followers }}
         </a>
 
     </p>
 
     <p>Following:
-        <a href="{% url 'mini_insta:show_following' profile.pk %}">
+        <a href="{% url 'mini_insta:show_following'%}">
             {{profile.get_num_following }}
         </a>
 
