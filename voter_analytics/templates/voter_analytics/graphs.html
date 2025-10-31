@@ -1,0 +1,27 @@
+<!--graphs.html
+Name: Sarah Lam 
+Description:passes the plotly graphs as context -->
+
+
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<!--displaying all the graphs needed-->
+<h2>Voter for city</h2>
+<div>
+    {{graph_distribution|safe}}
+    </div>
+
+<h2>Voter by birth</h2>
+<div>
+    {{graphs|safe}}
+    </div>
+
+
+<h2>Voter by party affiliation</h2>
+<div>
+    {{graph_party|safe}}
+    </div>
+
+{% endblock %}
+
+

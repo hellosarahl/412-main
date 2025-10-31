@@ -1,0 +1,32 @@
+<!--voter_analytics/templates/voter_analytics/base.html-->
+<!--
+Name: Sarah Lam
+Description: Base.html for the voter_analytics project which is the layout for the voter_analytics page
+-->
+{% load static %}
+<html>
+    <head>
+        <title>Voter Analytics</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    </head>
+    <body>
+        <header>
+            <h1>Voter Analytics</h1>
+            <nav>
+                <ul>
+                <li><a href="{% url 'voters' %}">All Voters</a></li>
+                 <li><a href="{% url 'graphs' %}">View Graph</a></li>
+                </ul>
+                </nav>
+                </header>
+
+
+            {% block content %}
+
+            {% endblock %}
+            </body>
+            </html>
+
+
+</html>

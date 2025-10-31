@@ -1,0 +1,79 @@
+<!--voter_analytics/templates/search.html
+Name: Sarah Lam
+Description: The search is for filtering the sections of criteria-->
+
+<h1>Filter Voters</h1>
+
+    <form method="get" action="{% url 'voters' %}">
+        <table>
+        <tr>
+            <th>City:</th>
+            <td><input type="text" name="v21town"></td>
+        
+        </tr>
+        <tr>
+            <!--Party affiliation-->
+            <th>Party:</th>
+            <td>
+                <select name="party_aff">
+                    <option value="">Any</option>
+                     <option value="D">D</option>
+                     <option value="R">R</option>
+                      <option value="U">U</option>
+                      </select>
+                      </td>
+                      </tr>
+                      <tr>
+                        <!--Min year of birth-->
+                        <th>Min Year Birth</th>
+                        <td>
+                         <select name="min_birth">
+                    <option value="">Any</option>
+                     <option value="1975">1975</option>
+                     <option value="1980">1980</option>
+                      <option value="1999">1999</option>
+                      </select>
+                      </td>
+                      </tr>
+                    <!--max birth -->
+                        <th>Max Year birth:</th>
+                         <td>    
+                            <select name="max_birth">
+                    <option value="">Any</option>
+                     <option value="2000">2000</option>
+                  
+                      </select>
+                    </td>
+                </tr>
+                <!--voters-->
+                            <th>Voter Score:</th>
+                             <td>    
+                            <select name="voter_score">
+                    <option value="">Any</option>
+                     <option value="1">1</option>
+                      <option value="2">2</option>
+                       <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+               
+                  
+                      </select>
+                    </td>
+                </tr>
+                <!--election-->
+                <tr>
+                    <th>Voted:</th>
+                    <td>
+                         <input type="checkbox" name="election2016" value="1">2016
+                        <input type="checkbox" name="election2020" value="1">2020
+                        <input type="checkbox" name="election2022" value="1">2022
+                         <input type="checkbox" name="election2024" value="1">2024
+                    </td>
+                </tr>
+                <!--submit-->
+                <tr>
+                   <td colspan="2"><button type="submit">Search</button></td>
+                </tr>
+                </table>
+                </form>
+                           

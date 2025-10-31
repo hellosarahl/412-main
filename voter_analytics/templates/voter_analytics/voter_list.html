@@ -1,0 +1,60 @@
+<!--voter_list.html-->
+<!--
+Name:Sarah Lam
+File:results.html for the voter_analyticd
+Description:
+-->
+{% extends 'voter_analytics/base.html' %}
+<h1>Showing all Results</h1>
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "voter_analytics/search.html" %}
+        </div>
+    <h1>result</h1>
+    <!--Navigation link for the different pag3s -->
+            {% if is_paginated %}
+    <div class="row">
+
+         <ul class="pagination">
+       
+            {% if page_obj.has_previous %}
+            <li>
+                <span><a href="?page={{ page_obj.previous_page_number}}">Previous</a></span>
+            </li>
+            {% endif %}
+            <li>
+                Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+                </li>
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{page_obj.next_page_number}}">Next</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            <!--table for the results -->
+            <div class="row">
+    <table>
+        <tr>
+            <th>First</th>
+             <th>Last </th>
+             <th>Street</th>
+              <th>Date of Birth</th>
+              <th>Voter Score</th>
+               <th>Affiliation of Party</th>
+        </tr>
+        {% for voter in voters %}
+        <tr>
+            <td>{{voter.first_name}}</td>
+            <td>{{voter.last_name}}</td>
+            <td>{{voter.street_name}}</td>
+            <td>{{voter.birth}}</td>
+             <td>{{voter.party_aff}}</td>
+              <td>{{voter.voter_score}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
+    {% endblock %}

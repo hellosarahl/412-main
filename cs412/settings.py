@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mini_insta',
+
+    # new app
+    'voter_analytics'
 ]
 
 MIDDLEWARE = [
@@ -132,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
  
-    BASE_DIR/"mini_insta" / "static",
+    BASE_DIR/"voter_analytics" / "static",
 
 ]
 
@@ -144,7 +146,7 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     FORCE_SCRIPT_NAME=  '/sarahl'
-    STATIC_URL = '/sarahl/mini_insta/static/mini_insta/'
+    STATIC_URL = '/sarahl/voter_analytics/static/voter_analytics/'
     MEDIA_URL = '/sarahl/media/'
 
 #declarations that references media files 

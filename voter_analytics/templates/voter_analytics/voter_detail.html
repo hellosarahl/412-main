@@ -1,0 +1,57 @@
+<!--templates/voter_analytics/result_detail.html-->
+
+<!--
+Name:Sarah Lam
+File: result_detail.html
+Description: Shows the result detail for the Voter-->
+{% extends 'voter_analytics/base.html %'}
+
+{% block content %}
+<div class="container">
+    <h1>Showing results for {{voter.first_name}} {{voter.last_name}}</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+   
+            <th>Party</th>
+            <th>Birth day</th>
+            <th>Registration</th>
+            <th>Voter Score</th>
+            <th>2020 Vote</th>
+            <th>2022 Vote</th>
+        
+            
+        </tr>
+
+        <tr>
+            <td>{{voter.first_name}} {{voter.last_name}}</td>
+      
+            <td>{{voter.party_aff}}</td>
+            <td>{{voter.birth}}</td>
+             <td>{{voter.date_reg}}</td>
+              <td>{{voter.voter_score}}</td>
+                 <td>{{voter.v20state}}</td>
+                      <td>{{voter.v22general}}</td>
+        </tr>
+    </table>
+
+ 
+
+    </div>
+    <!--show the pie chart here-->
+    <div class="container">
+        <div class="row">
+            <!--renders the html -->
+            {{graph_div_splits|safe}}
+            </div>
+            </div>
+
+             <!--show the bar chart here-->
+    <div class="container">
+        <div class="row">
+            <!--renders the html -->
+            {{graph_div_passed|safe}}
+            </div>
+            </div>
+
+    {% endblock %}
