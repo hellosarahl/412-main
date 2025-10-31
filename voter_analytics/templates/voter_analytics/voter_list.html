@@ -20,6 +20,7 @@ Description:
        
             {% if page_obj.has_previous %}
             <li>
+                <!--goes to the previous page-->
                 <span><a href="?page={{ page_obj.previous_page_number}}">Previous</a></span>
             </li>
             {% endif %}
@@ -43,6 +44,7 @@ Description:
               <th>Voter Score</th>
                <th>Affiliation of Party</th>
         </tr>
+        <!--goes through all voter info -->
         {% for voter in voters %}
         <tr>
             <td>{{voter.first_name}}</td>

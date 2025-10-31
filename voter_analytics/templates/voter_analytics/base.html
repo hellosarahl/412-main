@@ -7,14 +7,17 @@ Description: Base.html for the voter_analytics project which is the layout for t
 <html>
     <head>
         <title>Voter Analytics</title>
+        <!--link to static file-->
         <link rel="stylesheet" href="{% static 'style.css' %}">
 
     </head>
     <body>
         <header>
+            <!--Header-->
             <h1>Voter Analytics</h1>
             <nav>
                 <ul>
+                    <!--links for the navigation requirement-->
                 <li><a href="{% url 'voters' %}">All Voters</a></li>
                  <li><a href="{% url 'graphs' %}">View Graph</a></li>
                 </ul>
