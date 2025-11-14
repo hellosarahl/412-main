@@ -1,0 +1,22 @@
+<!--Name:Sarah Lam
+File:show all jokes
+Description: Shows all the jokes-->
+
+
+<h2>All jokes</h2>
+
+<p>Jokes</p>
+<p>Contributer {{joke.con}}</p>
+
+
+<ul>
+    {% for j in jokes %}
+    <li>
+        <a href="{% url 'jokes_one' j.pk}">{{j.text}}</a>
+        
+    </li>
+    {%endfor %}
+
+
+
+</ul>

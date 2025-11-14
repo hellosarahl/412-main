@@ -27,11 +27,12 @@ urlpatterns = [
    # path('',include('restaurant.urls')),
 
   # path('mini_insta/',include('mini_insta.urls')),
-   path('',RedirectView.as_view(url='/voter_analytics/',permanent=False)),
+  # path('',RedirectView.as_view(url='/voter_analytics/',permanent=False)),
 
 
    # path for the voter_analytics proj
-   path("voter_analytics/",include("voter_analytics.urls"))
+   #path("voter_analytics/",include("voter_analytics.urls"))
+    path('dadjokes/',include('dadjokes.urls')),
  
 ]
 #static files for development

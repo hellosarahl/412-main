@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # new app
-    'voter_analytics'
+    'dadjokes',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
