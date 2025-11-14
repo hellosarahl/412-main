@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
    /* allows styling to the title of each tsx of index,about, detail */
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     color:'blue',
   },
@@ -28,6 +28,13 @@ export const styles = StyleSheet.create({
   
 /*allows styling to the images */
   image: {
-   width:200,height:100, marginTop:10
+   width:100,height:100, marginTop:10
   },
+
+  //for the styles of the text
+  input:{
+    height:40,
+    color:'black',
+    backgroundColor:'white'
+  }
 });

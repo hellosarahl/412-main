@@ -1,7 +1,7 @@
 /*Name:Sarah Lma
 File: _layout.tsx
 Description:
-This layout is for the entire app */
+This layout is for the entire app for the DAD jokes */
 
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -52,14 +52,25 @@ export default function TabLayout() {
           ),
         }}
       />
-      
+      /*
       <Tabs.Screen
-        name="about"
+        name="jokes_list"
         options={{
-          title: 'About',
+          title: 'Jokes List',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+       <Tabs.Screen
+        name="add_joke"
+        options={{
+          title: 'Add Jokes',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+
     </Tabs>
+
+
+
   );
 }
