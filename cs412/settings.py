@@ -122,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/sarahl/static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -136,7 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
  
-    BASE_DIR/"project" / "static",
+    BASE_DIR/'project' / 'static',
 
 ]
 
@@ -148,7 +148,7 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     FORCE_SCRIPT_NAME=  '/sarahl'
-    STATIC_URL = '/sarahl/project/static/project/'
+    STATIC_URL = '/sarahl/static/'
     MEDIA_URL = '/sarahl/media/'
 
 #declarations that references media files 
