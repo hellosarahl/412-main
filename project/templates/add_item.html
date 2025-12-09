@@ -1,0 +1,14 @@
+<!-- Name:Sarah Lam 
+ File: add_item.html
+ Description: adds the items to the orders -->
+
+ {% extends "base.html" %}
+<!--add specific item to your order-->
+ {% block content %}
+ <h2> Add item to order</h2>
+ <form method="post">
+    {% csrf_token %}
+    {{f.as_p}}
+    <button type="submit">Save your item</button>
+ </form>
+ {% endblock %}

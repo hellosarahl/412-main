@@ -1,0 +1,30 @@
+<!--Name:Sarah Lam 
+Fil:base.html
+Description:The layout for the entire app -->
+{% load static %}
+
+<!DocTYPE html>
+<html>
+    <head>
+        <title>Makeup Project</title>
+        <link rel="stylesheet" href="{% static 'project/style.css' %}">
+    </head>
+    <body>
+        <!--navigation for the app-->
+        <header>
+            <h1>Makeup App</h1>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'makeuplist' %}">Makeup</a>
+             <a href="{% url 'customerlist' %}">Customer</a>
+              <a href="{% url 'orderlist' %}">Order list</a>
+              <a href="{% url 'createorder' %}"> Create Orders</a>
+
+
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+    
+</html>

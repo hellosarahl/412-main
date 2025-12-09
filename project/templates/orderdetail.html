@@ -1,0 +1,31 @@
+<!--Name:Sarah Lam
+File:orderdetail.html
+Description: shows details of the order detail-->
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Order {{order.pk}}</h2>
+
+<p>Status: {{order.status}}</p>
+<p>Date: {{order.dateoforder}}</p>
+
+
+<h2>Items:</h2>
+<ul>
+    {% for i in items %}
+    <li>{{i.product.name}}:
+        {{i.quantity}}</li>
+    {% empty %}
+    <p> No items for this order</p>
+
+    <!--delete the order -->
+    <form method="post" action="{% url 'delete' order.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    {% endfor %}
+</ul>
+{% endblock %}

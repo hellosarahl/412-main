@@ -1,0 +1,24 @@
+<!-- Name:Sarah Lam 
+ File:orderlist.html
+ Description: Shows the list of orders -->
+ {% extends "base.html" %}
+
+ <!--show the list of order in processing or in cart -->
+ {% block content %}
+ <h2> Orders!</h2>
+ <ul>
+    {% for o in orderlist %}
+    <li>
+        <a href="{% url 'order_detail' o.pk %}">
+            Order: {{o.pk}}-{{o.status}}
+        </a>
+        </li>
+
+        {% empty %}
+        <p> No orders coming in</p>
+        {% endfor %}
+
+
+
+ </ul>
+ {% endblock %}

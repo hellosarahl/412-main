@@ -23,6 +23,7 @@ from django.conf import settings
 """URL pattern for proj"""
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",include("project.urls")),
 
    # path('',include('restaurant.urls')),
 
@@ -32,7 +33,7 @@ urlpatterns = [
 
    # path for the voter_analytics proj
    #path("voter_analytics/",include("voter_analytics.urls"))
-    path('dadjokes/',include('dadjokes.urls')),
+   # path('dadjokes/',include('dadjokes.urls')),
  
 ]
 #static files for development

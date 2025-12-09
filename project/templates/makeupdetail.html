@@ -1,0 +1,16 @@
+<!--Name:Sarah Lam 
+File:makeupdetail.html
+Description: Shows the details of the makeup on the app-->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{makeup.name}}</h2>
+<p>Brand Name: {{makeup.company}}</p>
+<p>Pricing: $ {{makeup.price}}</p>
+
+{% if makeup.image %}
+<img src="{{makeup.image.url}}" alt="{{makeup.name}}" width="190">
+{% endif %}
+{% endblock %}

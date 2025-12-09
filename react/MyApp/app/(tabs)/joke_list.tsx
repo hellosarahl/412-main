@@ -18,7 +18,7 @@ export default function JokeListScreen() {
 //stores the array of the jokes
   const[jokes,setJoke]=useState<any[]>([]);
   //const[pic,setPic]=useState<any>(null);
-
+//fetch api for jokes
   useEffect(()=>{fetch('http://10.239.55.12:8000/dadjokes/api/jokes')
     .then(r=>r.json())
     .then (d=> setJoke(d))

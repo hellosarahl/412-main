@@ -1,0 +1,55 @@
+/*Name:Sarah Lam 
+File:style.css
+Description: The styling for the project 
+*/
+
+/* the background for the page */
+
+body{
+    background:pink; 
+    font-family:cursive;
+    text-align:center;
+    margin:0;
+    font-size:35px;
+  
+}
+/* purple heading*/
+h1,h2{
+    color:  rgb(229, 74, 229);
+   
+}
+/* spacing for the top navigation */
+header{
+    padding:16px;
+     color:  rgb(229, 74, 229);
+   
+    
+}
+/* list item styling */
+li{
+    background: pink;
+    margin: 6px auto;
+    padding: 9px;
+    width:60%;
+    border-radius:80x;
+}
+/* remove bullets */
+ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+/* spacing between navigation */
+header a{
+    margin: 0 10px;
+
+}
+
+/* rounding of the buttons */
+button{
+    font-size:20px;
+    color:rgb(48, 18, 45);
+    border-radius: 25px;
+}
+
+

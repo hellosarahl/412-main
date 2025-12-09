@@ -1,0 +1,29 @@
+<!--Name:Sarah Lam 
+File:makeuplist.html
+Description:This file shows all the makeup items from views-->
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Makeup Products</h2>
+
+<!--Find makeup by the type name -->
+<form method="get">
+    <input type="text" name="q" placeholder="Search makeup type">
+    <button type="submit">Search</button>
+
+</form>
+
+
+<!--list of projects-->
+<ul>
+    {% for i in makeuplist %}
+    <li>
+        <a href="{% url 'makeup' i.pk %}">{{i.name}}</a>
+        ${{i.price}}
+    </li>
+    {% empty %}
+    <p>No makeup item</p>
+    {% endfor %}
+
+</ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!--Name:Sarah Lam 
+File: createorder.html
+Description: This creates the oder for each customer 
+-->
+
+<!--Form to create order -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2> Create orders</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ f.as_p}}
+    <button type="submit">Item saved</button>
+</form>
+{% endblock %}
