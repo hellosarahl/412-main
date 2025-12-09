@@ -5,7 +5,7 @@ Description: The details of the customer list -->
 {% extends "base.html" %}
 {% block content %}
 <h2>Customers</h2>
-
+<!--Show every customer in the list-->
 <ul> {% for c in customerlist %}
     <li>
         <a href="{% url 'customer' c.pk %}">
